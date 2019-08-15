@@ -1,5 +1,6 @@
 package com.jojos.bank.resource;
 
+import com.jojos.bank.api.GenericExceptionMapper;
 import com.jojos.bank.api.ResourceApi;
 import com.sun.net.httpserver.HttpServer;
 import org.glassfish.jersey.jdkhttp.JdkHttpServerFactory;
@@ -38,6 +39,7 @@ public class Server {
 
         // load resources first
         ResourceConfig resourceConfig = new ResourceConfig(ResourceApi.class);
+        resourceConfig.register(GenericExceptionMapper.class);
 
         uri = UriBuilder.fromUri("http://" + createHostName() + "/").port(9989).build();
         server = JdkHttpServerFactory.createHttpServer(uri, resourceConfig, false);
